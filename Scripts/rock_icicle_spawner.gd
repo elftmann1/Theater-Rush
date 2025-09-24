@@ -3,6 +3,7 @@ extends Node
 var rock_prefab = preload("res://Scenes/RockIcicle.tscn")
 @export var number_of_rocks: int = 2
 @onready var rock_instance : Array = []
+@onready var rock_position_x : Array = []
 var is_spawning_rocks = false
 var game_started = false
 
@@ -16,14 +17,18 @@ func spawn_rock_icicle() -> void:
 	is_spawning_rocks = true
 
 	rock_instance.clear()
+	rock_position_x.clear()
 
 	for i in range(number_of_rocks):
 		var rock = rock_prefab.instantiate()
-		rock.position = Vector2(randi_range(-400, 400), -430)
+		var rand_x = randi_range(-530, 530)
+		rock.position = Vector2(rand_x, -430)
+		rock_position_x.append(rand_x)
 		add_child(rock)
 		rock_instance.append(rock)
 		rock.tree_exited.connect(func():
 			rock_instance.erase(rock)
+			rock_position_x.erase(rand_x)
 			if rock_instance.is_empty():
 				is_spawning_rocks = false	
 		)

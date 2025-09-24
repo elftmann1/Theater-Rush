@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://dgjqniq1e3sib"]
+[gd_scene load_steps=7 format=3 uid="uid://dgjqniq1e3sib"]
 
 [ext_resource type="PackedScene" uid="uid://camd18qtudr0c" path="res://Scenes/character_body_2d.tscn" id="1_iukft"]
 [ext_resource type="Script" uid="uid://dhtdoe70omqmm" path="res://Scripts/game_manager.gd" id="1_j5yw3"]
 [ext_resource type="Script" uid="uid://chu4wh5erqedi" path="res://Scripts/rock_icicle_spawner.gd" id="2_kldst"]
+[ext_resource type="Script" uid="uid://d3ovrk5wigauu" path="res://Scripts/enemy_spawner.gd" id="4_kldst"]
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_iukft"]
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_b2bpf"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_gl6un"]
 
@@ -25,11 +26,18 @@ text = "Timer: "
 [node name="Timer" type="Timer" parent="GameManager"]
 one_shot = true
 
+[node name="EnemySpawner" type="Node" parent="."]
+script = ExtResource("4_kldst")
+
 [node name="RockIcicleSpawner" type="Node" parent="."]
+process_mode = 4
 script = ExtResource("2_kldst")
+number_of_rocks = 5
 
 [node name="Player" parent="." instance=ExtResource("1_iukft")]
 unique_name_in_owner = true
+process_mode = 4
+visible = false
 z_index = 4
 position = Vector2(0, 213.645)
 scale = Vector2(0.5, 0.5)
@@ -39,20 +47,27 @@ speed = 300
 z_index = 5
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
+z_index = 1
 position = Vector2(0, 284.84)
-scale = Vector2(0.5, 0.5)
+collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-shape = SubResource("WorldBoundaryShape2D_iukft")
+shape = SubResource("WorldBoundaryShape2D_b2bpf")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(1152, 0)
-rotation = -1.5707964
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+position = Vector2(-576, 284.84)
+scale = Vector2(0.5, 0.5)
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D3"]
+rotation = 1.5707964
 shape = SubResource("WorldBoundaryShape2D_gl6un")
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(-1152, 0)
-rotation = 1.5707964
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(576, 284.84)
+scale = Vector2(0.5, 0.5)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D2"]
+rotation = -1.5707964
 shape = SubResource("WorldBoundaryShape2D_gl6un")
 
 [node name="ColorRect" type="ColorRect" parent="."]

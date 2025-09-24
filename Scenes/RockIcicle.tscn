@@ -6,6 +6,7 @@
 [node name="RockIcicle" type="RigidBody2D"]
 z_index = 1
 collision_mask = 2
+gravity_scale = 2.0
 script = ExtResource("1_d3trv")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
