@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhayhhj82hj1n"]
+
+[ext_resource type="PackedScene" uid="uid://bk0o472a1gvgn" path="res://Scenes/Inherited_Enemies/enemy.tscn" id="1_mypwx"]
+[ext_resource type="Texture2D" uid="uid://dtmdjq75jeubr" path="res://Assets/wizard.png" id="2_awg7q"]
+
+[node name="Wizard" instance=ExtResource("1_mypwx")]
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_awg7q")
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, -2)
+scale = Vector2(12.88, 20.97)

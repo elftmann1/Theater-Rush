@@ -33,6 +33,8 @@ func _ready() -> void:
 		sprite.flip_h = false
 		startPosition = Vector2(GET_SCREEN_WIDTH_RIGHT, 284.84 - ((collision.scale.y/2) / 0.05))
 		endPosition = Vector2(GET_SCREEN_WIDTH_LEFT, 284.84 - ((collision.scale.y/2) / 0.05))
+	elif spawnPosition == SpawnPosition.MIDDLE:
+		startPosition = Vector2(0,0)
 
 func _physics_process(delta: float) -> void:
 
@@ -40,7 +42,6 @@ func _physics_process(delta: float) -> void:
 		print("freed")
 		queue_free()
 
-	velocity.x = flipSpawn * speed
 	move_and_slide()
 
 	for i in get_slide_collision_count():
