@@ -36,11 +36,10 @@ number_of_rocks = 5
 
 [node name="Player" parent="." instance=ExtResource("1_iukft")]
 unique_name_in_owner = true
-process_mode = 4
-visible = false
 z_index = 4
 position = Vector2(0, 213.645)
 scale = Vector2(0.5, 0.5)
+collision_mask = 2
 speed = 300
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -106,6 +105,7 @@ mouse_filter = 1
 text = "Restart"
 
 [connection signal="start_game" from="GameManager" to="RockIcicleSpawner" method="_on_game_manager_start_game"]
+[connection signal="enmey_hit_player" from="EnemySpawner" to="Player" method="_on_enmey_hit_player"]
 [connection signal="is_moving" from="Player" to="GameManager" method="_on_player_is_moving"]
 [connection signal="player_died" from="Player" to="GameManager" method="_on_player_player_died"]
 [connection signal="player_died" from="Player" to="RockIcicleSpawner" method="_on_player_player_died"]

@@ -3,6 +3,7 @@ extends CharacterBody2D
 signal is_moving
 signal player_died
 @export var speed: int = 100
+@export var health: float = 3
 
 func _ready():
 	while isMoving():
@@ -21,3 +22,7 @@ func has_died() -> void:
 
 func isMoving():
 	return velocity.x < 0.1
+
+func _on_enmey_hit_player(collision_name : String, damage : int) -> void:
+	if (name == collision_name):
+		print(name, damage)

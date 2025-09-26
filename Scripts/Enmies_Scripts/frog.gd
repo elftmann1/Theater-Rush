@@ -10,9 +10,3 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 	else :
 		velocity -= get_gravity() * delta * 50
-
-	movement(delta)
-
-func movement(delta: float) -> void:
-	velocity.x = speed
-	move_and_slide()
