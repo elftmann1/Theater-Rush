@@ -1,0 +1,3 @@
+class_name SpawnPosition
+
+enum { LEFT, RIGHT, GROUNDLEFT, GROUNDRIGHT, TOPLEFT, TOPRIGHT, MIDDLE}

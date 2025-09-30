@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://camd18qtudr0c"]
+
+[ext_resource type="Script" uid="uid://b7onj726u562" path="res://Scripts/character_body_2d.gd" id="1_f50pn"]
+[ext_resource type="Texture2D" uid="uid://emqyh57buthu" path="res://icon.svg" id="2_ij6vw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ij6vw"]
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_f50pn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ij6vw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(6.425, 6.425)
+shape = SubResource("RectangleShape2D_ij6vw")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true

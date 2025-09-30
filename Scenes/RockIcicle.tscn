@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://cqvel35iyw0ng"]
+
+[ext_resource type="Script" uid="uid://c0vy8bxi4hwu7" path="res://Scripts/rock_icicle.gd" id="1_d3trv"]
+[ext_resource type="Texture2D" uid="uid://dnc34kb8c1ong" path="res://Assets/RockIcicle.png" id="1_iiagk"]
+
+[node name="RockIcicle" type="RigidBody2D"]
+z_index = 1
+collision_mask = 2
+gravity_scale = 2.0
+script = ExtResource("1_d3trv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_iiagk")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-9, -129, 8, -129, 42, -105, 0, 129, -43, -105)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

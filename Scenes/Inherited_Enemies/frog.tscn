@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://ckieb82v8l8mp"]
+
+[ext_resource type="PackedScene" uid="uid://bk0o472a1gvgn" path="res://Scenes/Inherited_Enemies/enemy.tscn" id="1_0tpwi"]
+[ext_resource type="Script" uid="uid://b3ou2gcnfolr8" path="res://Scripts/Enemies_Scripts/frog.gd" id="2_0xqft"]
+[ext_resource type="Texture2D" uid="uid://eonyo1f3d3r3" path="res://Assets/frog.jpg" id="2_j6m6r"]
+
+[node name="Frog" instance=ExtResource("1_0tpwi")]
+script = ExtResource("2_0xqft")
+speed = 300.0
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_j6m6r")
+flip_h = true
+
+[node name="CollisionShape2D" parent="." index="1"]
+scale = Vector2(12.675, 9.155)
+
+[node name="Timer" type="Timer" parent="." index="2"]
+one_shot = true
