@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dpssarqptv3xs"]
 
 [ext_resource type="PackedScene" uid="uid://bk0o472a1gvgn" path="res://Scenes/Inherited_Enemies/enemy.tscn" id="1_gyk54"]
-[ext_resource type="Script" uid="uid://be032msvo513p" path="res://Scripts/Enmies_Scripts/knight.gd" id="2_imcf0"]
+[ext_resource type="Script" uid="uid://be032msvo513p" path="res://Scripts/Enemies_Scripts/knight.gd" id="2_imcf0"]
 [ext_resource type="Texture2D" uid="uid://cyobc5ub3hqd2" path="res://Assets/knight.jpg" id="2_xie8c"]
 
 [node name="Knight" instance=ExtResource("1_gyk54")]

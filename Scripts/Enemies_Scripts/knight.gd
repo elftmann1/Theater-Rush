@@ -9,5 +9,7 @@ func _physics_process(delta: float) -> void:
 	velocity.x = flipSpawn * speed
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-	else :
-		velocity -= get_gravity() * delta * 50
+		
+	if flipSpawn * (position.x - endPosition.x) > 0:
+		print("freed")
+		queue_free()
