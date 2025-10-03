@@ -7,6 +7,7 @@
 
 [node name="Dragon" instance=ExtResource("1_n6spy")]
 script = ExtResource("2_jr6bh")
+inerpolated_weight = 0.0
 speed = 0.0
 
 [node name="Sprite2D" parent="." index="0"]
@@ -15,12 +16,12 @@ texture = ExtResource("2_qxdfn")
 [node name="CollisionShape2D" parent="." index="1"]
 position = Vector2(0, -0.5)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="CollisionShape2D" index="0"]
-position = Vector2(407, 229.49997)
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="2"]
+position = Vector2(407, 228.99997)
 scale = Vector2(43.285725, 35.676792)
-polygon = PackedVector2Array(-10, -10.5, 13.616651, 4.621044, -0.8497286, 4.8019886)
+polygon = PackedVector2Array(-10, -10, -10, -10, -10, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D/CollisionPolygon2D" index="0"]
+[node name="Sprite2D" type="Sprite2D" parent="CollisionPolygon2D" index="0"]
 position = Vector2(-2.5044603, -3.201325)
 rotation = -0.7853982
 scale = Vector2(0.01403452, 0.015047296)

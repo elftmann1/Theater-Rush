@@ -21,7 +21,7 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("SpawnWiz"):
 		instantiate_enemy_with_tweens(wizard_prefab.instantiate(), SpawnPosition.RIGHT, -100, 500, "emit_fire_ball", ["casting"])
 	if Input.is_action_just_pressed("spawnDragon"):
-		instantiate_enemy_with_tweens(dragon_prefab.instantiate(), SpawnPosition.LEFT, -100, 500, "emit_fire_breath", ["bwaaaaah"])
+		instantiate_enemy_with_tweens(dragon_prefab.instantiate(), SpawnPosition.LEFT, -100, 500, "emit_fire_breath", [])
 			
 
 func instantiate_enemy(prefab, spawnPosition):
