@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://dc3u0ioe5c6hi"]
+
+[ext_resource type="PackedScene" uid="uid://bk0o472a1gvgn" path="res://Scenes/Inherited_Enemies/enemy.tscn" id="1_n6spy"]
+[ext_resource type="Script" uid="uid://crulgwi066n1p" path="res://Scripts/Enemies_Scripts/Dragon.gd" id="2_jr6bh"]
+[ext_resource type="Texture2D" uid="uid://byw5twoy0000g" path="res://Assets/dragon-png-6.png" id="2_qxdfn"]
+
+[node name="Dragon" instance=ExtResource("1_n6spy")]
+script = ExtResource("2_jr6bh")
+flameExpandTime = 3.0
+flameRetractTime = 3.0
+speed = 0.0
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_qxdfn")
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, -0.5)
+
+[node name="Area2D" type="Area2D" parent="." index="2"]
+position = Vector2(45, -90)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" index="0"]
+scale = Vector2(43.285725, 35.676792)
+polygon = PackedVector2Array(0, 0, 0, 0, 0, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D/CollisionPolygon2D" index="0"]
+position = Vector2(-2.5044603, -3.201325)
+rotation = -0.7853982
+scale = Vector2(0.01403452, 0.015047296)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_fire_breath_entered"]
