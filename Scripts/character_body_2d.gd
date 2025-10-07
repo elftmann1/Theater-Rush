@@ -31,7 +31,7 @@ func has_died() -> void:
 func isMoving():
 	return velocity.x < 0.1
 
-func _on_enmey_hit_player(collision_name : String, damage : int) -> void:
+func _on_enmey_hit_player(collision_name : String, damage : float) -> void:
 	if (name == collision_name):
 		print(name, damage)
 		

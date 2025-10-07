@@ -19,9 +19,11 @@ var end_breath2
 var start_to_end_breath
 
 var flameLerpingTime: float = 0.0
-@export var flameExpandTime: float = 3.0
-@export var flameRetractTime: float = 3.0
+@export var flameDamage: float = 3.0
+@export var flameExpandTime: float = 1
+@export var flameRetractTime: float = 1.5
 @export var flameToGround: float = 15
+@export var smokeWaitTime: float = 3.0
 
 func _ready() -> void:
 	super._ready()
@@ -34,7 +36,7 @@ func _ready() -> void:
 	flame_on.emitting = false
 	smoke_on.emitting = false
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if is_flame_expanding:
 		lerpedBreathValues[0] = start_breath.lerp(end_breath, flameLerpingTime)
 		lerpedBreathValues[1] = start_breath.lerp(end_breath2, flameLerpingTime)
@@ -45,9 +47,9 @@ func _physics_process(delta: float) -> void:
 	#print(lerpedBreathValues)
 
 func emit_fire_breath() -> void:
-	# Start emitting flame
+	# Start emitting flame	
 	smoke_on.emitting = true
-	await get_tree().create_timer(3).timeout
+	await get_tree().create_timer(smokeWaitTime).timeout
 	smoke_on.emitting = false
 	is_flame_expanding = true
 	breath_colision.disabled = false
@@ -60,9 +62,8 @@ func emit_fire_breath() -> void:
 	lerpedBreathValues[1] = end_breath2
 	is_flame_expanding = false
 
-	
 	# hold flame breath
-	await get_tree().create_timer(attack_delay - (flameExpandTime + flameRetractTime)).timeout
+	await get_tree().create_timer((attack_delay - smokeWaitTime) - (flameExpandTime + flameRetractTime)).timeout
 
 	# Start retracting flame
 	flameLerpingTime = 0
@@ -77,4 +78,5 @@ func emit_fire_breath() -> void:
 	breath_colision.disabled = true
 
 func _on_area_fire_breath_entered(body: Node2D) -> void:
-	pass # Replace with function body.
+	# print(body.name)
+	_player_hit.emit(body.name, flameDamage)

@@ -6,7 +6,8 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ij6vw"]
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
-collision_layer = 2
+collision_layer = 4
+collision_mask = 3
 script = ExtResource("1_f50pn")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

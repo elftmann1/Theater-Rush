@@ -14,7 +14,7 @@ func _ready() -> void:
 	restart_button.pressed.connect(self.restart_button_pressed)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	timer_text.text = "Timer: " + str(int(timer.time_left));
 
 func start_timer():
