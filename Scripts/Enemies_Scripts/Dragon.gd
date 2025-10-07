@@ -2,6 +2,8 @@ extends Enemy
 
 @onready var breath_colision: CollisionPolygon2D = $Area2D/CollisionPolygon2D
 @onready var breath_colision_area: Area2D = $Area2D
+@onready var flame_on: GPUParticles2D = $GPUParticles2D
+@onready var smoke_on: GPUParticles2D = $SmokeParticles
 var is_flame_expanding = false
 var is_flame_retracting = false
 
@@ -16,10 +18,10 @@ var end_breath
 var end_breath2
 var start_to_end_breath
 
-var flameLerpingTime : float = 0.0
-@export var flameExpandTime : float = 3.0
-@export var flameRetractTime : float = 3.0
-@export var flameToGround : float = 15
+var flameLerpingTime: float = 0.0
+@export var flameExpandTime: float = 3.0
+@export var flameRetractTime: float = 3.0
+@export var flameToGround: float = 15
 
 func _ready() -> void:
 	super._ready()
@@ -28,7 +30,9 @@ func _ready() -> void:
 	start_breath = Vector2(0, 0)
 	end_breath = Vector2(0, flameToGround)
 	end_breath2 = Vector2(25, flameToGround)
-	start_to_end_breath = Vector2((end_breath.x + end_breath2.x)/2, flameToGround)
+	start_to_end_breath = Vector2((end_breath.x + end_breath2.x) / 2, flameToGround)
+	flame_on.emitting = false
+	smoke_on.emitting = false
 
 func _physics_process(delta: float) -> void:
 	if is_flame_expanding:
@@ -42,15 +46,20 @@ func _physics_process(delta: float) -> void:
 
 func emit_fire_breath() -> void:
 	# Start emitting flame
+	smoke_on.emitting = true
+	await get_tree().create_timer(3).timeout
+	smoke_on.emitting = false
 	is_flame_expanding = true
 	breath_colision.disabled = false
-	var flameExpandTween : Tween = get_tree().create_tween()
+	var flameExpandTween: Tween = get_tree().create_tween()
 	flameExpandTween.tween_property(self, "flameLerpingTime", 1.0, flameExpandTime)
+	flame_on.emitting = true
 
 	await flameExpandTween.finished
 	lerpedBreathValues[0] = end_breath
 	lerpedBreathValues[1] = end_breath2
-	is_flame_expanding = false	
+	is_flame_expanding = false
+
 	
 	# hold flame breath
 	await get_tree().create_timer(attack_delay - (flameExpandTime + flameRetractTime)).timeout
@@ -58,12 +67,13 @@ func emit_fire_breath() -> void:
 	# Start retracting flame
 	flameLerpingTime = 0
 	is_flame_retracting = true
-	var flameRetractTween : Tween = get_tree().create_tween()
+	var flameRetractTween: Tween = get_tree().create_tween()
 	flameRetractTween.tween_property(self, "flameLerpingTime", 1.0, flameRetractTime)
+	flame_on.emitting = false
 
 	await flameRetractTween.finished
 	lerpedBreathValues[2] = start_to_end_breath
-	is_flame_retracting = false	
+	is_flame_retracting = false
 	breath_colision.disabled = true
 
 func _on_area_fire_breath_entered(body: Node2D) -> void:
