@@ -11,6 +11,8 @@ var spawnPosition = null
 var spawnPositionVector: Vector2
 var flipSpawn: int = 1
 
+var body_collied_with : Node2D
+var is_collied_hitbox : bool = false
 
 var startPosition: Vector2
 var endPosition: Vector2
@@ -49,6 +51,8 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	move_and_slide()
+	if is_collied_hitbox:
+		_player_hit.emit(body_collied_with.name, damage)
 
 func get_screen_width_left():
 	return GET_SCREEN_WIDTH_LEFT
@@ -56,15 +60,12 @@ func get_screen_width_left():
 func get_screen_width_right():
 	return GET_SCREEN_WIDTH_RIGHT
 
-
-func collision_with_player():
-	pass
-
-func deal_damage():
-	pass
-
 func get_attack_delay() -> int:
 	return attack_delay
 
 func _on_hit_box_area_body_entered(body: Node2D) -> void:
-	_player_hit.emit(body.name, damage)
+	body_collied_with = body
+	is_collied_hitbox = true
+
+func _on_hit_box_area_body_exited(body: Node2D) -> void:
+	is_collied_hitbox = false

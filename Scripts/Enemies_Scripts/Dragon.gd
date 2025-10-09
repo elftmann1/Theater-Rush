@@ -4,6 +4,7 @@ extends Enemy
 @onready var breath_colision_area: Area2D = $Area2D
 @onready var flame_on: GPUParticles2D = $GPUParticles2D
 @onready var smoke_on: GPUParticles2D = $SmokeParticles
+var is_collied_flame_hitbox = false
 var is_flame_expanding = false
 var is_flame_retracting = false
 
@@ -37,6 +38,7 @@ func _ready() -> void:
 	smoke_on.emitting = false
 
 func _physics_process(_delta: float) -> void:
+	super._physics_process(_delta)
 	if is_flame_expanding:
 		lerpedBreathValues[0] = start_breath.lerp(end_breath, flameLerpingTime)
 		lerpedBreathValues[1] = start_breath.lerp(end_breath2, flameLerpingTime)
@@ -44,6 +46,8 @@ func _physics_process(_delta: float) -> void:
 	if is_flame_retracting:
 		lerpedBreathValues[2] = start_breath.lerp(start_to_end_breath, flameLerpingTime)
 		breath_colision.polygon = lerpedBreathValues
+	if is_collied_flame_hitbox:
+		_player_hit.emit(body_collied_with.name, flameDamage)
 	#print(lerpedBreathValues)
 
 func emit_fire_breath() -> void:
@@ -79,4 +83,8 @@ func emit_fire_breath() -> void:
 
 func _on_area_fire_breath_entered(body: Node2D) -> void:
 	# print(body.name)
-	_player_hit.emit(body.name, flameDamage)
+	body_collied_with = body
+	is_collied_flame_hitbox = true
+
+func _on_area_fire_breath_exited(body: Node2D) -> void:
+	is_collied_flame_hitbox = false
