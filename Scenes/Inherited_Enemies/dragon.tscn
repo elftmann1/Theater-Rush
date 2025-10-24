@@ -1,23 +1,76 @@
-[gd_scene load_steps=4 format=3 uid="uid://dc3u0ioe5c6hi"]
+[gd_scene load_steps=13 format=3 uid="uid://dc3u0ioe5c6hi"]
 
 [ext_resource type="PackedScene" uid="uid://bk0o472a1gvgn" path="res://Scenes/Inherited_Enemies/enemy.tscn" id="1_n6spy"]
 [ext_resource type="Script" uid="uid://crulgwi066n1p" path="res://Scripts/Enemies_Scripts/Dragon.gd" id="2_jr6bh"]
 [ext_resource type="Texture2D" uid="uid://byw5twoy0000g" path="res://Assets/dragon-png-6.png" id="2_qxdfn"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3o4tc"]
+size = Vector2(356.865, 893)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_jr6bh"]
+blend_mode = 1
+
+[sub_resource type="Curve" id="Curve_3o4tc"]
+_data = [Vector2(0.2546012, 0.96420586), 0.0, 0.0, 0, 0, Vector2(0.98466253, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_1kagy"]
+curve = SubResource("Curve_3o4tc")
+
+[sub_resource type="Curve" id="Curve_7lii2"]
+_data = [Vector2(0.16011237, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_yyowo"]
+curve = SubResource("Curve_7lii2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_iaxo0"]
+particle_flag_disable_z = true
+direction = Vector3(1, 1, 0)
+initial_velocity_max = 633.32996
+gravity = Vector3(0, 98, 0)
+scale_max = 15.28
+color = Color(1, 0.4392157, 0.08235294, 1)
+alpha_curve = SubResource("CurveTexture_1kagy")
+turbulence_enabled = true
+turbulence_influence_over_life = SubResource("CurveTexture_yyowo")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jr6bh"]
+particle_flag_disable_z = true
+direction = Vector3(1, 1, 0)
+initial_velocity_max = 633.32996
+gravity = Vector3(0, 98, 0)
+scale_min = 5.0
+scale_max = 52.949997
+color = Color(0.34, 0.34, 0.34, 0.16862746)
+alpha_curve = SubResource("CurveTexture_1kagy")
+turbulence_enabled = true
+turbulence_influence_over_life = SubResource("CurveTexture_yyowo")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jr6bh"]
+size = Vector2(356.865, 893)
+
 [node name="Dragon" instance=ExtResource("1_n6spy")]
 script = ExtResource("2_jr6bh")
-flameExpandTime = 3.0
-flameRetractTime = 3.0
+flameDamage = 3.0
+flameExpandTime = 1.0
+flameRetractTime = 1.5
+flameToGround = 15.0
+smokeWaitTime = 3.0
 speed = 0.0
+attack_delay = 13
 
-[node name="Sprite2D" parent="." index="0"]
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(-253, 0)
+shape = SubResource("RectangleShape2D_3o4tc")
+
+[node name="Sprite2D" parent="." index="1"]
 texture = ExtResource("2_qxdfn")
-
-[node name="CollisionShape2D" parent="." index="1"]
-position = Vector2(0, -0.5)
 
 [node name="Area2D" type="Area2D" parent="." index="2"]
 position = Vector2(45, -90)
+collision_layer = 0
+collision_mask = 4
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" index="0"]
 scale = Vector2(43.285725, 35.676792)
@@ -28,4 +81,25 @@ position = Vector2(-2.5044603, -3.201325)
 rotation = -0.7853982
 scale = Vector2(0.01403452, 0.015047296)
 
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." index="3"]
+material = SubResource("CanvasItemMaterial_jr6bh")
+position = Vector2(45, -90)
+emitting = false
+amount = 5000
+lifetime = 3.0
+process_material = SubResource("ParticleProcessMaterial_iaxo0")
+
+[node name="SmokeParticles" type="GPUParticles2D" parent="." index="4"]
+position = Vector2(54, -105)
+emitting = false
+amount = 5000
+lifetime = 3.0
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_jr6bh")
+
+[node name="CollisionShape2D" parent="HitBoxArea2d" index="0"]
+position = Vector2(-253, 0)
+shape = SubResource("RectangleShape2D_jr6bh")
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_fire_breath_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_fire_breath_exited"]

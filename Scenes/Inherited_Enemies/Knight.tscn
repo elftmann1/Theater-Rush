@@ -1,17 +1,26 @@
-[gd_scene load_steps=4 format=3 uid="uid://dpssarqptv3xs"]
+[gd_scene load_steps=6 format=3 uid="uid://dpssarqptv3xs"]
 
 [ext_resource type="PackedScene" uid="uid://bk0o472a1gvgn" path="res://Scenes/Inherited_Enemies/enemy.tscn" id="1_gyk54"]
 [ext_resource type="Script" uid="uid://be032msvo513p" path="res://Scripts/Enemies_Scripts/knight.gd" id="2_imcf0"]
 [ext_resource type="Texture2D" uid="uid://cyobc5ub3hqd2" path="res://Assets/knight.jpg" id="2_xie8c"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_imcf0"]
+size = Vector2(37.81, 124.14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ke8uj"]
+size = Vector2(37.81, 124.14)
+
 [node name="Knight" instance=ExtResource("1_gyk54")]
 script = ExtResource("2_imcf0")
 damage = 1.0
 
-[node name="Sprite2D" parent="." index="0"]
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("RectangleShape2D_imcf0")
+
+[node name="Sprite2D" parent="." index="1"]
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("2_xie8c")
 flip_h = true
 
-[node name="CollisionShape2D" parent="." index="1"]
-scale = Vector2(1.935, 6)
+[node name="CollisionShape2D" parent="HitBoxArea2d" index="0"]
+shape = SubResource("RectangleShape2D_ke8uj")

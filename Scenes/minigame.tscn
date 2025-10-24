@@ -1,17 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://dgjqniq1e3sib"]
+[gd_scene load_steps=6 format=3 uid="uid://dirp0g4i0til5"]
 
-[ext_resource type="PackedScene" uid="uid://camd18qtudr0c" path="res://Scenes/character_body_2d.tscn" id="1_iukft"]
-[ext_resource type="Script" uid="uid://dhtdoe70omqmm" path="res://Scripts/game_manager.gd" id="1_j5yw3"]
-[ext_resource type="Script" uid="uid://d3ovrk5wigauu" path="res://Scripts/enemy_spawner.gd" id="4_kldst"]
+[ext_resource type="Script" uid="uid://b8wb1ne7nj73g" path="res://Scenes/game_manager_scene.gd" id="1_5bepb"]
+[ext_resource type="PackedScene" uid="uid://camd18qtudr0c" path="res://Scenes/character_body_2d.tscn" id="1_ij8rg"]
+[ext_resource type="Script" uid="uid://chu4wh5erqedi" path="res://Scripts/rock_icicle_spawner.gd" id="2_s7wve"]
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_b2bpf"]
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_s7wve"]
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_gl6un"]
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_5bepb"]
 
-[node name="Game" type="Node2D"]
+[node name="Node2D" type="Node2D"]
 
 [node name="GameManager" type="Node" parent="."]
-script = ExtResource("1_j5yw3")
+script = ExtResource("1_5bepb")
 
 [node name="TimerText" type="Label" parent="GameManager"]
 z_index = 4
@@ -22,13 +22,20 @@ offset_bottom = -219.0
 theme_override_font_sizes/font_size = 50
 text = "Timer: "
 
+[node name="CounterText" type="Label" parent="GameManager"]
+z_index = 4
+offset_left = 302.0
+offset_top = -300.0
+offset_right = 553.0
+offset_bottom = -204.0
+theme_override_font_sizes/font_size = 50
+text = " "
+
 [node name="Timer" type="Timer" parent="GameManager"]
 one_shot = true
+autostart = true
 
-[node name="EnemySpawner" type="Node" parent="."]
-script = ExtResource("4_kldst")
-
-[node name="Player" parent="." instance=ExtResource("1_iukft")]
+[node name="Player" parent="." instance=ExtResource("1_ij8rg")]
 unique_name_in_owner = true
 z_index = 4
 position = Vector2(0, 213.645)
@@ -38,13 +45,18 @@ speed = 300
 [node name="Camera2D" type="Camera2D" parent="."]
 z_index = 5
 
+[node name="RockIcicleSpawner" type="Node" parent="."]
+script = ExtResource("2_s7wve")
+
+[node name="Timer" type="Timer" parent="RockIcicleSpawner"]
+
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 z_index = 1
 position = Vector2(0, 284.84)
 collision_layer = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-shape = SubResource("WorldBoundaryShape2D_b2bpf")
+shape = SubResource("WorldBoundaryShape2D_s7wve")
 
 [node name="StaticBody2D3" type="StaticBody2D" parent="."]
 position = Vector2(-576, 284.84)
@@ -52,7 +64,7 @@ scale = Vector2(0.5, 0.5)
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D3"]
 rotation = 1.5707964
-shape = SubResource("WorldBoundaryShape2D_gl6un")
+shape = SubResource("WorldBoundaryShape2D_5bepb")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
 position = Vector2(576, 284.84)
@@ -60,28 +72,12 @@ scale = Vector2(0.5, 0.5)
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D2"]
 rotation = -1.5707964
-shape = SubResource("WorldBoundaryShape2D_gl6un")
-
-[node name="ColorRect" type="ColorRect" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -912.0
-offset_top = -492.0
-offset_right = 900.0
-offset_bottom = 285.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.4893117, 0.26741782, 0.2059907, 1)
+shape = SubResource("WorldBoundaryShape2D_5bepb")
 
 [node name="RestartButton" type="Node2D" parent="."]
 unique_name_in_owner = true
-process_mode = 4
-visible = false
 z_index = 6
-position = Vector2(0, -90.25)
+position = Vector2(-912, -582.25)
 scale = Vector2(5.545, 5.545)
 
 [node name="Button" type="Button" parent="RestartButton"]
@@ -100,6 +96,18 @@ grow_vertical = 2
 mouse_filter = 1
 text = "Restart"
 
-[connection signal="enmey_hit_player" from="EnemySpawner" to="Player" method="_on_enmey_hit_player"]
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -923.0
+offset_top = -488.0
+offset_right = 889.0
+offset_bottom = 289.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.4893117, 0.26741782, 0.2059907, 1)
+
 [connection signal="is_moving" from="Player" to="GameManager" method="_on_player_is_moving"]
-[connection signal="player_died" from="Player" to="GameManager" method="_on_player_player_died"]

@@ -1,6 +1,6 @@
 class_name Enemy extends CharacterBody2D
 
-signal player_hit(collision_name, damage)
+signal _player_hit(collision_name : String, damage : float)
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
@@ -11,6 +11,8 @@ var spawnPosition = null
 var spawnPositionVector: Vector2
 var flipSpawn: int = 1
 
+var body_collied_with : Node2D
+var is_collied_hitbox : bool = false
 
 var startPosition: Vector2
 var endPosition: Vector2
@@ -21,7 +23,8 @@ var time: float = 0
 @export var attack_delay: int = 10
 
 @onready var sprite = $Sprite2D
-@onready var collision = $CollisionShape2D
+@onready var collision : CollisionShape2D = $CollisionShape2D
+@onready var collisionHitBox : Area2D = $HitBoxArea2d
 
 func _ready() -> void:
 	GET_SCREEN_WIDTH = get_viewport_rect().size.x
@@ -46,15 +49,10 @@ func _ready() -> void:
 		flipSpawn = -1
 		startPosition = Vector2(GET_SCREEN_WIDTH_RIGHT, 0)
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	move_and_slide()
-	emit_collision_hit()
-
-func emit_collision_hit():
-	for i in get_slide_collision_count():
-		var collision_hit = get_slide_collision(i)
-		if collision_hit.get_collider():
-			player_hit.emit(collision_hit.get_collider().name, damage)
+	if is_collied_hitbox:
+		_player_hit.emit(body_collied_with.name, damage)
 
 func get_screen_width_left():
 	return GET_SCREEN_WIDTH_LEFT
@@ -62,12 +60,12 @@ func get_screen_width_left():
 func get_screen_width_right():
 	return GET_SCREEN_WIDTH_RIGHT
 
-
-func collision_with_player():
-	pass
-
-func deal_damage():
-	pass
-
 func get_attack_delay() -> int:
 	return attack_delay
+
+func _on_hit_box_area_body_entered(body: Node2D) -> void:
+	body_collied_with = body
+	is_collied_hitbox = true
+
+func _on_hit_box_area_body_exited(body: Node2D) -> void:
+	is_collied_hitbox = false

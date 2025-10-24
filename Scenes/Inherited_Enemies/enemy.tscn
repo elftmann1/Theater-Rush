@@ -1,16 +1,30 @@
-[gd_scene load_steps=3 format=3 uid="uid://bk0o472a1gvgn"]
+[gd_scene load_steps=4 format=3 uid="uid://bk0o472a1gvgn"]
 
 [ext_resource type="Script" uid="uid://gmmemqncgtid" path="res://Scripts/Enemies_Scripts/enemy.gd" id="1_wkuv8"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wkuv8"]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wl5l1"]
-size = Vector2(20, 17)
 
 [node name="Enemy" type="CharacterBody2D"]
+collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_wkuv8")
 speed = 100.0
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 1
+shape = SubResource("RectangleShape2D_wkuv8")
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="HitBoxArea2d" type="Area2D" parent="."]
+z_index = 1
+collision_layer = 4
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxArea2d"]
 shape = SubResource("RectangleShape2D_wl5l1")
+
+[connection signal="body_entered" from="HitBoxArea2d" to="." method="_on_hit_box_area_body_entered"]
+[connection signal="body_exited" from="HitBoxArea2d" to="." method="_on_hit_box_area_body_exited"]
