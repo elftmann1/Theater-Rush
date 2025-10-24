@@ -14,6 +14,10 @@ config/name="Theater Rush"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GameManager="*res://Scripts/game_manager.gd"
+
 [input]
 
 Left={

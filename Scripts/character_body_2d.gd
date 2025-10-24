@@ -5,6 +5,7 @@ signal player_died
 @export var speed: int = 100
 @export var health: float = 3
 @export var dash_speed: int = 10000
+@export var score: int = 0
 @onready var timer: Timer = $Timer
 
 func _ready():
@@ -13,13 +14,12 @@ func _ready():
 	is_moving.emit()
 
 func _physics_process(delta: float) -> void:
-	
 	if timer.is_stopped() and Input.is_action_just_pressed("Dash"):
-		velocity.x = Input.get_axis("Left","Right") * dash_speed
+		velocity.x = Input.get_axis("Left", "Right") * dash_speed
 		print("dash")
 		timer.start()
 	else:
-		velocity.x = Input.get_axis("Left","Right") * speed
+		velocity.x = Input.get_axis("Left", "Right") * speed
 	velocity.y -= -9
 	move_and_slide()
 
@@ -29,9 +29,9 @@ func has_died() -> void:
 	queue_free()
 
 func isMoving():
+	GameManager.start_game.emit()
 	return velocity.x < 0.1
 
-func _on_enmey_hit_player(collision_name : String, damage : float) -> void:
+func _on_enmey_hit_player(collision_name: String, damage: float) -> void:
 	if (name == collision_name):
 		print(name, damage)
-		
