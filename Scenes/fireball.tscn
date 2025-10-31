@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvgy1ovs5t8ee"]
+
+[ext_resource type="Script" uid="uid://c0vy8bxi4hwu7" path="res://Scripts/rock_icicle.gd" id="1_0mxqg"]
+[ext_resource type="Texture2D" uid="uid://dvxf51ve0clb5" path="res://Assets/fireball.png" id="2_0mxqg"]
+
+[node name="fireball" type="RigidBody2D"]
+z_index = 1
+collision_mask = 2
+gravity_scale = 2.0
+script = ExtResource("1_0mxqg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_0mxqg")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-5.0000005, -21.000002)
+rotation = 3.1415927
+scale = Vector2(1.799, 1.204)
+polygon = PackedVector2Array(-12.426354, -119.601326, 9.808219, -120.43189, 37.045574, -79.73422, -3.3351803, 102.15947, -42.245697, -78.903656)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

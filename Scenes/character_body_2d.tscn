@@ -17,6 +17,9 @@ texture = ExtResource("2_ij6vw")
 scale = Vector2(6.425, 6.425)
 shape = SubResource("RectangleShape2D_ij6vw")
 
-[node name="Timer" type="Timer" parent="."]
+[node name="dashTimer" type="Timer" parent="."]
 wait_time = 3.0
+one_shot = true
+
+[node name="hitTimer" type="Timer" parent="."]
 one_shot = true
