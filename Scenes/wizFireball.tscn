@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://b7ulg2xqb753m"]
+
+[ext_resource type="Script" uid="uid://c0vy8bxi4hwu7" path="res://Scripts/rock_icicle.gd" id="1_f8202"]
+[ext_resource type="Texture2D" uid="uid://dvxf51ve0clb5" path="res://Assets/fireball.png" id="2_5rxlm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_78ylf"]
+size = Vector2(70.23, 176)
+
+[node name="wizFireball" type="RigidBody2D"]
+z_index = 1
+collision_mask = 2
+script = ExtResource("1_f8202")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_5rxlm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_78ylf")
+disabled = true
+
+[connection signal="body_entered" from="." to="Sprite2D" method="_on_body_entered"]

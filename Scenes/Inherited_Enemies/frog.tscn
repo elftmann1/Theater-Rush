@@ -11,19 +11,19 @@ size = Vector2(255, 187)
 size = Vector2(255, 187)
 
 [node name="Frog" instance=ExtResource("1_0tpwi")]
-collision_layer = 0
 script = ExtResource("2_0xqft")
 speed = 300.0
+damage = 2.0
 
 [node name="CollisionShape2D" parent="." index="0"]
 shape = SubResource("RectangleShape2D_0xqft")
 
-[node name="Sprite2D" parent="." index="1"]
+[node name="Timer" type="Timer" parent="." index="1"]
+one_shot = true
+
+[node name="Sprite2D" parent="." index="2"]
 texture = ExtResource("2_j6m6r")
 flip_h = true
-
-[node name="Timer" type="Timer" parent="." index="2"]
-one_shot = true
 
 [node name="CollisionShape2D" parent="HitBoxArea2d" index="0"]
 shape = SubResource("RectangleShape2D_wkc0l")
