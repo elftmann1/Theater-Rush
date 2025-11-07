@@ -9,9 +9,9 @@ var is_flame_expanding = false
 var is_flame_retracting = false
 
 var lerpedBreathValues := PackedVector2Array([
-	Vector2(0, 0),
-	Vector2(0, 0),
-	Vector2(0, 0)
+	Vector2(0.575, 0.65),
+	Vector2(0.575, 0.65),
+	Vector2(0.575, 0.65)
 ])
 
 var start_breath
@@ -21,18 +21,18 @@ var start_to_end_breath
 
 var flameLerpingTime: float = 0.0
 @export var flameDamage: float = 3.0
-@export var flameExpandTime: float = 1
-@export var flameRetractTime: float = 1.5
-@export var flameToGround: float = 15
-@export var smokeWaitTime: float = 3.0
+@export var flameExpandTime: float = 1.0
+@export var flameRetractTime: float = 2.0
+@export var flameToGround: float = 5.5
+@export var smokeWaitTime: float = 2.0
 
 func _ready() -> void:
 	super._ready()
 	breath_colision.disabled = true
 	position = startPosition
-	start_breath = Vector2(0, 0)
-	end_breath = Vector2(0, flameToGround)
-	end_breath2 = Vector2(25, flameToGround)
+	start_breath = Vector2(0.575, 0.65)
+	end_breath = Vector2(0.575, flameToGround)
+	end_breath2 = Vector2(10, flameToGround - 5)
 	start_to_end_breath = Vector2((end_breath.x + end_breath2.x) / 2, flameToGround)
 	flame_on.emitting = false
 	smoke_on.emitting = false

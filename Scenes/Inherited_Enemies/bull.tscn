@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://c4byajjj734ru"]
+
+[ext_resource type="PackedScene" uid="uid://bk0o472a1gvgn" path="res://Scenes/Inherited_Enemies/enemy.tscn" id="1_itjuj"]
+[ext_resource type="Texture2D" uid="uid://bfsovxqgdvow6" path="res://Assets/oxxx.png" id="2_1ocmg"]
+[ext_resource type="Script" uid="uid://ds4fly57yfb0i" path="res://Scripts/Enemies_Scripts/Bull.gd" id="2_pwvnd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pwvnd"]
+size = Vector2(258.94, 192.77)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rhijl"]
+size = Vector2(258.94, 192.77)
+
+[node name="Bull" instance=ExtResource("1_itjuj")]
+script = ExtResource("2_pwvnd")
+speed = 500.0
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("RectangleShape2D_pwvnd")
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_1ocmg")
+flip_h = true
+
+[node name="CollisionShape2D" parent="HitBoxArea2d" index="0"]
+shape = SubResource("RectangleShape2D_rhijl")
