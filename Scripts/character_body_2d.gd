@@ -7,6 +7,8 @@ signal player_died
 @export var dash_speed: int = 10000
 @export var score: int = 0
 @onready var timer: Timer = $Timer
+@export var gravity: int = 900
+@export var jump_force: int = -600
 
 func _ready():
 	while isMoving():
@@ -19,8 +21,21 @@ func _physics_process(delta: float) -> void:
 		print("dash")
 		timer.start()
 	else:
+		if not is_on_floor():
+			velocity.y += gravity * delta
+			if Input.is_action_pressed("Down"):
+				velocity.y += speed * 10 * delta
+				# velocity.y *= -speed * .001 # save for slow fall ability
+				
+		else:
+		# Jump
+			if Input.is_action_just_pressed("Up"):
+				velocity.y = jump_force
+			
+
+		# Left/right movement
 		velocity.x = Input.get_axis("Left", "Right") * speed
-	velocity.y -= -9
+
 	move_and_slide()
 
 func has_died() -> void:
