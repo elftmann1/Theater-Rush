@@ -1,11 +1,7 @@
-extends RigidBody2D
-
-func _ready() -> void:
-	contact_monitor = true;
-	max_contacts_reported = 10;
+extends Area2D
 
 func _on_body_entered(body: Node) -> void:
 	if body.has_method("has_died"):
-		body.has_died();
-		print("died");
-	queue_free();
+		print("fruit get")
+		GameManager.add_score(1)
+		queue_free()

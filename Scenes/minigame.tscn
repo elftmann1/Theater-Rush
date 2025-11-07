@@ -1,0 +1,113 @@
+[gd_scene load_steps=6 format=3 uid="uid://dirp0g4i0til5"]
+
+[ext_resource type="Script" uid="uid://b8wb1ne7nj73g" path="res://Scenes/game_manager_scene.gd" id="1_5bepb"]
+[ext_resource type="PackedScene" uid="uid://camd18qtudr0c" path="res://Scenes/character_body_2d.tscn" id="1_ij8rg"]
+[ext_resource type="Script" uid="uid://chu4wh5erqedi" path="res://Scripts/rock_icicle_spawner.gd" id="2_s7wve"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_s7wve"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_5bepb"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="GameManager" type="Node" parent="."]
+script = ExtResource("1_5bepb")
+
+[node name="TimerText" type="Label" parent="GameManager"]
+z_index = 4
+offset_left = -552.0
+offset_top = -299.0
+offset_right = -256.0
+offset_bottom = -219.0
+theme_override_font_sizes/font_size = 50
+text = "Timer: "
+
+[node name="CounterText" type="Label" parent="GameManager"]
+z_index = 4
+offset_left = 302.0
+offset_top = -300.0
+offset_right = 553.0
+offset_bottom = -204.0
+theme_override_font_sizes/font_size = 50
+text = " "
+
+[node name="Timer" type="Timer" parent="GameManager"]
+one_shot = true
+autostart = true
+
+[node name="Player" parent="." instance=ExtResource("1_ij8rg")]
+unique_name_in_owner = true
+z_index = 4
+position = Vector2(0, 213.645)
+scale = Vector2(0.5, 0.5)
+speed = 300
+
+[node name="Camera2D" type="Camera2D" parent="."]
+z_index = 5
+
+[node name="RockIcicleSpawner" type="Node" parent="."]
+script = ExtResource("2_s7wve")
+
+[node name="Timer" type="Timer" parent="RockIcicleSpawner"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+z_index = 1
+position = Vector2(0, 284.84)
+collision_layer = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("WorldBoundaryShape2D_s7wve")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+position = Vector2(-576, 284.84)
+scale = Vector2(0.5, 0.5)
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D3"]
+rotation = 1.5707964
+shape = SubResource("WorldBoundaryShape2D_5bepb")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(576, 284.84)
+scale = Vector2(0.5, 0.5)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D2"]
+rotation = -1.5707964
+shape = SubResource("WorldBoundaryShape2D_5bepb")
+
+[node name="RestartButton" type="Node2D" parent="."]
+unique_name_in_owner = true
+z_index = 6
+position = Vector2(-912, -582.25)
+scale = Vector2(5.545, 5.545)
+
+[node name="Button" type="Button" parent="RestartButton"]
+z_index = 7
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.5
+offset_top = -15.5
+offset_right = 32.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+text = "Restart"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -923.0
+offset_top = -488.0
+offset_right = 889.0
+offset_bottom = 289.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.4893117, 0.26741782, 0.2059907, 1)
+
+[connection signal="is_moving" from="Player" to="GameManager" method="_on_player_is_moving"]

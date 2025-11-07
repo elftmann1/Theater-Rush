@@ -2,7 +2,6 @@
 
 [ext_resource type="PackedScene" uid="uid://camd18qtudr0c" path="res://Scenes/character_body_2d.tscn" id="1_iukft"]
 [ext_resource type="Script" uid="uid://dhtdoe70omqmm" path="res://Scripts/game_manager.gd" id="1_j5yw3"]
-[ext_resource type="Script" uid="uid://chu4wh5erqedi" path="res://Scripts/rock_icicle_spawner.gd" id="2_kldst"]
 [ext_resource type="Script" uid="uid://d3ovrk5wigauu" path="res://Scripts/enemy_spawner.gd" id="4_kldst"]
 [ext_resource type="Texture2D" uid="uid://c8vtbe4k4f5nb" path="res://Assets/theatre_bg_prototype.png" id="5_b2bpf"]
 
@@ -29,11 +28,6 @@ one_shot = true
 
 [node name="EnemySpawner" type="Node" parent="."]
 script = ExtResource("4_kldst")
-
-[node name="RockIcicleSpawner" type="Node" parent="."]
-process_mode = 4
-script = ExtResource("2_kldst")
-number_of_rocks = 5
 
 [node name="Player" parent="." instance=ExtResource("1_iukft")]
 unique_name_in_owner = true
@@ -69,6 +63,8 @@ shape = SubResource("WorldBoundaryShape2D_gl6un")
 
 [node name="RestartButton" type="Node2D" parent="."]
 unique_name_in_owner = true
+process_mode = 4
+visible = false
 z_index = 6
 position = Vector2(0, -90.25)
 scale = Vector2(5.545, 5.545)
@@ -108,6 +104,6 @@ texture = ExtResource("5_b2bpf")
 
 [connection signal="start_game" from="GameManager" to="RockIcicleSpawner" method="_on_game_manager_start_game"]
 [connection signal="_enmey_hit_player" from="EnemySpawner" to="Player" method="_on_enmey_hit_player"]
+
 [connection signal="is_moving" from="Player" to="GameManager" method="_on_player_is_moving"]
 [connection signal="player_died" from="Player" to="GameManager" method="_on_player_player_died"]
-[connection signal="player_died" from="Player" to="RockIcicleSpawner" method="_on_player_player_died"]

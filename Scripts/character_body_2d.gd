@@ -2,10 +2,13 @@ extends CharacterBody2D
 
 signal is_moving
 signal player_died
-@export var speed: float = 28.0
-@export var health: float = 3.0
+
+@export var speed: int = 100
+@export var health: float = 5
 @export var dash_speed: int = 10000
-@onready var timer: Timer = $Timer
+@export var score: int = 0
+@onready var dashTimer: Timer = $dashTimer
+@onready var hitTimer: Timer = $hitTimer
 @onready var animated_sprite : AnimatedSprite2D = $AnimatedSprite2D
 
 func _ready():
@@ -16,13 +19,14 @@ func _ready():
 	is_moving.emit()
 
 func _physics_process(delta: float) -> void:
-	if timer.is_stopped() and Input.is_action_just_pressed("Dash"):
-		velocity.x = Input.get_axis("Left","Right") * dash_speed
+
+	if dashTimer.is_stopped() and Input.is_action_just_pressed("Dash"):
+		velocity.x = Input.get_axis("Left", "Right") * dash_speed
+
 		print("dash")
-		timer.start()
+		dashTimer.start()
 	else:
-		velocity.x = Input.get_axis("Left","Right") * speed
-		print(velocity.x)
+	  velocity.x = Input.get_axis("Left", "Right") * speed
 	velocity.y -= -9
 	if velocity.x >= 0.1:
 		if animated_sprite.animation != "Walk":
@@ -35,6 +39,9 @@ func _physics_process(delta: float) -> void:
 	else:
 		animated_sprite.play("Idle")
 	move_and_slide()
+	
+	if (health < 1):
+		has_died()
 
 func has_died() -> void:
 	print("has died")
@@ -42,9 +49,14 @@ func has_died() -> void:
 	queue_free()
 
 func isMoving():
-	return abs(velocity.x) < 0.1
+	GameManager.start_game.emit()
+	return velocity.x < 0.1
 
-func _on_enmey_hit_player(collision_name : String, damage : float) -> void:
-	if (name == collision_name):
-		print(name, damage)
-		
+func _on_enmey_hit_player(collision_name: String, damage: float) -> void:
+	if (hitTimer.is_stopped()):
+		if (name == collision_name):
+			print(name, damage)
+			health -= damage
+			# add blinking animation to show invincibility
+			hitTimer.start()
+	

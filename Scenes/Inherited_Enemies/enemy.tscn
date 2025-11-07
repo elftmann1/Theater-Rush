@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://gmmemqncgtid" path="res://Scripts/Enemies_Scripts/enemy.gd" id="1_wkuv8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wkuv8"]
+size = Vector2(146, 106)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wl5l1"]
 
