@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://dgjqniq1e3sib"]
+[gd_scene load_steps=8 format=3 uid="uid://dgjqniq1e3sib"]
 
 [ext_resource type="PackedScene" uid="uid://camd18qtudr0c" path="res://Scenes/character_body_2d.tscn" id="1_iukft"]
 [ext_resource type="Script" uid="uid://dhtdoe70omqmm" path="res://Scripts/game_manager.gd" id="1_j5yw3"]
 [ext_resource type="Script" uid="uid://chu4wh5erqedi" path="res://Scripts/rock_icicle_spawner.gd" id="2_kldst"]
 [ext_resource type="Script" uid="uid://d3ovrk5wigauu" path="res://Scripts/enemy_spawner.gd" id="4_kldst"]
+[ext_resource type="Texture2D" uid="uid://c8vtbe4k4f5nb" path="res://Assets/theatre_bg_prototype.png" id="5_b2bpf"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_b2bpf"]
 
@@ -37,23 +38,21 @@ number_of_rocks = 5
 [node name="Player" parent="." instance=ExtResource("1_iukft")]
 unique_name_in_owner = true
 z_index = 4
-position = Vector2(0, 213.645)
 scale = Vector2(0.5, 0.5)
-speed = 300
 
 [node name="Camera2D" type="Camera2D" parent="."]
 z_index = 5
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 z_index = 1
-position = Vector2(0, 284.84)
+position = Vector2(0, 79.36)
 collision_layer = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("WorldBoundaryShape2D_b2bpf")
 
 [node name="StaticBody2D3" type="StaticBody2D" parent="."]
-position = Vector2(-576, 284.84)
+position = Vector2(-160, 0)
 scale = Vector2(0.5, 0.5)
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D3"]
@@ -61,26 +60,12 @@ rotation = 1.5707964
 shape = SubResource("WorldBoundaryShape2D_gl6un")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
-position = Vector2(576, 284.84)
+position = Vector2(160, 0)
 scale = Vector2(0.5, 0.5)
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D2"]
 rotation = -1.5707964
 shape = SubResource("WorldBoundaryShape2D_gl6un")
-
-[node name="ColorRect" type="ColorRect" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -912.0
-offset_top = -492.0
-offset_right = 900.0
-offset_bottom = 285.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.4893117, 0.26741782, 0.2059907, 1)
 
 [node name="RestartButton" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -104,8 +89,25 @@ grow_vertical = 2
 mouse_filter = 1
 text = "Restart"
 
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="Node2D"]
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -90.0
+offset_right = 160.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_b2bpf")
+
 [connection signal="start_game" from="GameManager" to="RockIcicleSpawner" method="_on_game_manager_start_game"]
-[connection signal="enmey_hit_player" from="EnemySpawner" to="Player" method="_on_enmey_hit_player"]
+[connection signal="_enmey_hit_player" from="EnemySpawner" to="Player" method="_on_enmey_hit_player"]
 [connection signal="is_moving" from="Player" to="GameManager" method="_on_player_is_moving"]
 [connection signal="player_died" from="Player" to="GameManager" method="_on_player_player_died"]
 [connection signal="player_died" from="Player" to="RockIcicleSpawner" method="_on_player_player_died"]

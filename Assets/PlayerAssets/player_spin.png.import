@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://boc5ami4aod20"
-path="res://.godot/imported/wizard.png-86da330b468f3026e0c85c24927f3877.ctex"
+uid="uid://dahah7w0xgaq1"
+path="res://.godot/imported/player_spin.png-b17709bc250b0dbb5246687874f910b7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/wizard.png"
-dest_files=["res://.godot/imported/wizard.png-86da330b468f3026e0c85c24927f3877.ctex"]
+source_file="res://Assets/PlayerAssets/player_spin.png"
+dest_files=["res://.godot/imported/player_spin.png-b17709bc250b0dbb5246687874f910b7.ctex"]
 
 [params]
 

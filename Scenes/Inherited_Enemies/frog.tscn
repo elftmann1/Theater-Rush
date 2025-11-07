@@ -11,7 +11,6 @@ size = Vector2(255, 187)
 size = Vector2(255, 187)
 
 [node name="Frog" instance=ExtResource("1_0tpwi")]
-collision_layer = 0
 script = ExtResource("2_0xqft")
 speed = 300.0
 
