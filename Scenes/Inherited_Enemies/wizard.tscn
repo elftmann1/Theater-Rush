@@ -2,24 +2,26 @@
 
 [ext_resource type="PackedScene" uid="uid://bk0o472a1gvgn" path="res://Scenes/Inherited_Enemies/enemy.tscn" id="1_mypwx"]
 [ext_resource type="Script" uid="uid://rwo8biu3qaua" path="res://Scripts/Enemies_Scripts/Wizard.gd" id="2_4lp64"]
-[ext_resource type="Texture2D" uid="uid://dtmdjq75jeubr" path="res://Assets/wizard.png" id="2_awg7q"]
+[ext_resource type="Texture2D" uid="uid://boc5ami4aod20" path="res://Assets/wizard.png" id="2_awg7q"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_awg7q"]
-size = Vector2(251.85, 342.385)
+size = Vector2(15.845, 43.442497)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4lp64"]
-size = Vector2(251.85, 342.385)
+size = Vector2(15.845, 43.442497)
 
 [node name="Wizard" instance=ExtResource("1_mypwx")]
 script = ExtResource("2_4lp64")
 speed = 0.0
 
 [node name="CollisionShape2D" parent="." index="0"]
-position = Vector2(0, -2)
+position = Vector2(0, 2.7212496)
 shape = SubResource("RectangleShape2D_awg7q")
 
 [node name="Sprite2D" parent="." index="1"]
+texture_filter = 1
 texture = ExtResource("2_awg7q")
 
 [node name="CollisionShape2D" parent="HitBoxArea2d" index="0"]
+position = Vector2(0, 2.7212496)
 shape = SubResource("RectangleShape2D_4lp64")

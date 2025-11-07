@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://cg8mvhefyhkhu"]
+
+[ext_resource type="PackedScene" uid="uid://bk0o472a1gvgn" path="res://Scenes/Inherited_Enemies/enemy.tscn" id="1_824w2"]
+[ext_resource type="Texture2D" uid="uid://iqycwryfxlcc" path="res://Assets/joker.jpg" id="2_crihv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_85ksi"]
+size = Vector2(116.015, 187.845)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xx7tb"]
+size = Vector2(116.015, 187.845)
+
+[node name="Jester" instance=ExtResource("1_824w2")]
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("RectangleShape2D_85ksi")
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_crihv")
+
+[node name="CollisionShape2D" parent="HitBoxArea2d" index="0"]
+shape = SubResource("RectangleShape2D_xx7tb")

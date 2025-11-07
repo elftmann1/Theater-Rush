@@ -17,7 +17,7 @@ func _physics_process(delta: float) -> void:
 		velocity.x = 0
 		timer.start()
 	if ready_to_jump:
-		velocity.x = flipSpawn * speed
+		velocity.x = flipSpawn * speed 
 		if not is_on_floor():
 			velocity += get_gravity() * delta
 		else:

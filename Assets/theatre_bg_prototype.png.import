@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://boc5ami4aod20"
-path="res://.godot/imported/wizard.png-86da330b468f3026e0c85c24927f3877.ctex"
+uid="uid://c8vtbe4k4f5nb"
+path="res://.godot/imported/theatre_bg_prototype.png-289a9ffaff57dac79084810d21eb6da5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/wizard.png"
-dest_files=["res://.godot/imported/wizard.png-86da330b468f3026e0c85c24927f3877.ctex"]
+source_file="res://Assets/theatre_bg_prototype.png"
+dest_files=["res://.godot/imported/theatre_bg_prototype.png-289a9ffaff57dac79084810d21eb6da5.ctex"]
 
 [params]
 

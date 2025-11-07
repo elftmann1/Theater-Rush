@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqfrulltsy561"]
+
+[ext_resource type="Script" uid="uid://dvr1ja1jr1jop" path="res://Scripts/fireball.gd" id="1_dju2h"]
+[ext_resource type="Texture2D" uid="uid://dvxf51ve0clb5" path="res://Assets/fireball.png" id="2_dju2h"]
+
+[node name="Fireball" type="RigidBody2D"]
+z_index = 1
+collision_mask = 2
+gravity_scale = 2.0
+script = ExtResource("1_dju2h")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_dju2h")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(1, 0)
+polygon = PackedVector2Array(-1, -128, 83, 18, 142, 139, 0, 249, -136, 134, -77, 14)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
