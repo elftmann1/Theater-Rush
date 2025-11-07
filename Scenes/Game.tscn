@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://dgjqniq1e3sib"]
 
 [ext_resource type="PackedScene" uid="uid://camd18qtudr0c" path="res://Scenes/character_body_2d.tscn" id="1_iukft"]
-[ext_resource type="Script" uid="uid://dhtdoe70omqmm" path="res://Scripts/game_manager.gd" id="1_j5yw3"]
+[ext_resource type="Script" uid="uid://b8wb1ne7nj73g" path="res://Scenes/game_manager_scene.gd" id="1_j5yw3"]
 [ext_resource type="Script" uid="uid://d3ovrk5wigauu" path="res://Scripts/enemy_spawner.gd" id="4_kldst"]
 [ext_resource type="Texture2D" uid="uid://c8vtbe4k4f5nb" path="res://Assets/theatre_bg_prototype.png" id="5_b2bpf"]
 
@@ -25,6 +25,17 @@ text = "Timer: "
 
 [node name="Timer" type="Timer" parent="GameManager"]
 one_shot = true
+autostart = true
+
+[node name="CounterText" type="Label" parent="GameManager"]
+process_mode = 4
+z_index = 4
+offset_left = 302.0
+offset_top = -300.0
+offset_right = 553.0
+offset_bottom = -204.0
+theme_override_font_sizes/font_size = 50
+text = " "
 
 [node name="EnemySpawner" type="Node" parent="."]
 script = ExtResource("4_kldst")

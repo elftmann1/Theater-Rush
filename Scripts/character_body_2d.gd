@@ -7,6 +7,8 @@ signal player_died
 @export var health: float = 5
 @export var dash_speed: int = 10000
 @export var score: int = 0
+@export var gravity: int = 900
+@export var jump_force: int = -600
 @onready var dashTimer: Timer = $dashTimer
 @onready var hitTimer: Timer = $hitTimer
 @onready var animated_sprite : AnimatedSprite2D = $AnimatedSprite2D
@@ -26,8 +28,22 @@ func _physics_process(delta: float) -> void:
 		print("dash")
 		dashTimer.start()
 	else:
-	  velocity.x = Input.get_axis("Left", "Right") * speed
-	velocity.y -= -9
+		if not is_on_floor():
+			velocity.y += gravity * delta
+			if Input.is_action_pressed("Down"):
+				velocity.y += speed * 10 * delta
+				# velocity.y *= -speed * .001 # save for slow fall ability
+				
+		else:
+		# Jump
+			if Input.is_action_just_pressed("Up"):
+				velocity.y = jump_force
+			
+
+		# Left/right movement
+		velocity.x = Input.get_axis("Left", "Right") * speed
+
+	 
 	if velocity.x >= 0.1:
 		if animated_sprite.animation != "Walk":
 			animated_sprite.play("Walk")
